@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generic Equivalents — MyPrescription</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #162032;
+      --muted: #5a687d;
+      --accent: #0f62fe;
+      --accent-soft: #e8f1ff;
+      --green-bg: #e6f7ee;
+      --green-text: #0e7a43;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 14px 48px;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    h1 { font-size: 21px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      background: #f1f5f9;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .search-box {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--text);
+      margin-bottom: 16px;
+      outline: none;
+    }
+    .search-box:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.12); }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title { font-size: 16px; font-weight: 700; }
+    .badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .badge.green { background: var(--green-bg); color: var(--green-text); }
+    .brand-list { list-style: none; }
+    .brand-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 4px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .brand-item:last-child { border-bottom: none; }
+    .price { color: var(--muted); font-weight: 600; white-space: nowrap; font-size: 13px; }
+    .empty { color: var(--muted); font-size: 14px; padding: 6px 0; }
+    .notice {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 18px;
+      padding: 0 8px;
+    }
+    .error-box { text-align: center; padding: 32px 16px; }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="card error-box">Loading exact pharmaceutical equivalents...</div>
+  </div>
+
+  <script>
+    async function init() {
+      const app = document.getElementById("app");
+      const params = new URLSearchParams(window.location.search);
+      const id = (params.get("id") || "").trim();
+
+      if (!id) {
+        app.innerHTML = `<div class="card error-box"><h2>Missing Medication ID</h2><p class="empty">Scan a valid prescription QR code to view exact pharmaceutical equivalents.</p></div>`;
+        return;
+      }
+
+      try {
+        const res = await fetch("./grouped_ingredients.json");
+        if (!res.ok) throw new Error("Database unavailable");
+        const db = await res.json();
+        const entry = db[id];
+
+        if (!entry) {
+          app.innerHTML = `<div class="card error-box"><h2>Medication Not Found</h2><p class="empty">No equivalent record found for ID: ${escapeHtml(id)}</p></div>`;
+          return;
+        }
+
+        document.title = `${entry.active_ingredient} — Equivalents`;
+        render(entry);
+      } catch (err) {
+        app.innerHTML = `<div class="card error-box"><h2>Unable to Load Equivalents</h2><p class="empty">${escapeHtml(err.message)}</p></div>`;
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function render(entry) {
+      const app = document.getElementById("app");
+      const cats = (entry.categories || []).map(c => `<span class="tag">${escapeHtml(c)}</span>`).join("");
+
+      app.innerHTML = `
+        <div class="card">
+          <div class="eyebrow">Exact Active Ingredient, Dose &amp; Route Equivalents</div>
+          <h1>${escapeHtml(entry.active_ingredient)}</h1>
+          <div class="tags">${cats}</div>
+        </div>
+
+        <input type="search" id="filterInput" class="search-box" placeholder="Filter commercial brands by name..." />
+
+        <div class="card">
+          <div class="section-header">
+            <span class="section-title">Egyptian Drug Index</span>
+            <span class="badge" id="egCount">${entry.egyptian_brands.length} Brands</span>
+          </div>
+          <div id="egList"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-header">
+            <span class="section-title">International Drug Index</span>
+            <span class="badge green" id="intlCount">${entry.international_brands.length} Brands</span>
+          </div>
+          <div id="intlList"></div>
+        </div>
+
+        <p class="notice">
+          Listed brands match the exact active ingredient, strength, and route/dosage form. Pharmacist &amp; prescriber verification is required prior to dispensing.
+        </p>
+      `;
+
+      const filterInput = document.getElementById("filterInput");
+      const updateLists = () => {
+        const q = filterInput.value.trim().toLowerCase();
+        const egFiltered = entry.egyptian_brands.filter(b => b.name.toLowerCase().includes(q));
+        const intlFiltered = entry.international_brands.filter(b => b.name.toLowerCase().includes(q));
+
+        document.getElementById("egCount").textContent = `${egFiltered.length} ${egFiltered.length === 1 ? "Brand" : "Brands"}`;
+        document.getElementById("intlCount").textContent = `${intlFiltered.length} ${intlFiltered.length === 1 ? "Brand" : "Brands"}`;
+
+        document.getElementById("egList").innerHTML = egFiltered.length
+          ? `<ul class="brand-list">${egFiltered.map(b => `
+              <li class="brand-item">
+                <span>${escapeHtml(b.name)}</span>
+                ${b.price != null ? `<span class="price">${Number(b.price).toFixed(2)} EGP</span>` : ""}
+              </li>`).join("")}</ul>`
+          : `<p class="empty">No matching brands in the Egyptian Drug Index.</p>`;
+
+        document.getElementById("intlList").innerHTML = intlFiltered.length
+          ? `<ul class="brand-list">${intlFiltered.map(b => `
+              <li class="brand-item">
+                <span>${escapeHtml(b.name)}</span>
+              </li>`).join("")}</ul>`
+          : `<p class="empty">No matching brands in the International Drug Index.</p>`;
+      };
+
+      filterInput.addEventListener("input", updateLists);
+      updateLists();
+    }
+
+    init();
+  </script>
+</body>
+</html>
