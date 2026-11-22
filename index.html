@@ -1,179 +1,418 @@
-<script>
-  let currentEntry = null;
-
-  function escapeHtml(str) {
-    return String(str ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  function formatPrice(price) {
-    const num = Number(price);
-    if (!Number.isFinite(num) || num <= 0) return "";
-    return `${num.toFixed(2)} EGP`;
-  }
-
-  function setCardVisibility(listEl, explicitId, shouldShow) {
-    const section =
-      document.getElementById(explicitId) ||
-      (listEl ? listEl.closest("section, .card") : null);
-    if (section) {
-      section.style.display = shouldShow ? "" : "none";
-    }
-  }
-
-  function renderBrandList(listEl, countEl, brands, isEgyptian, query) {
-    if (!listEl) return;
-
-    const q = query.trim().toLowerCase();
-    const filtered = q
-      ? brands.filter((b) => String(b.name || "").toLowerCase().includes(q))
-      : brands;
-
-    if (countEl) {
-      countEl.textContent = `${filtered.length} ${filtered.length === 1 ? "Brand" : "Brands"}`;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medication Alternatives | Rx Alternatives</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #0f52ba;
+      --primary-soft: #e8f0fe;
+      --border: #e2e8f0;
+      --badge-bg: #ecfdf5;
+      --badge-text: #047857;
+      --error-bg: #fef2f2;
+      --error-text: #b91c1c;
     }
 
-    if (filtered.length === 0) {
-      listEl.innerHTML = `<li class="empty-msg">No matching brands found.</li>`;
-      return;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    listEl.innerHTML = filtered
-      .map((item) => {
-        const nameHtml = escapeHtml(item.name);
-        const priceStr = isEgyptian ? formatPrice(item.price) : "";
-        const badgeHtml = priceStr
-          ? `<span class="price-badge">${escapeHtml(priceStr)}</span>`
-          : "";
-        return `<li class="brand-item"><span class="brand-name">${nameHtml}</span>${badgeHtml}</li>`;
-      })
-      .join("");
-  }
-
-  function updateLists() {
-    if (!currentEntry) return;
-
-    const searchInput = document.getElementById("searchInput");
-    const query = searchInput ? searchInput.value : "";
-
-    const egBrands = Array.isArray(currentEntry.egyptian_brands)
-      ? currentEntry.egyptian_brands
-      : [];
-    const intlBrands = Array.isArray(currentEntry.international_brands)
-      ? currentEntry.international_brands
-      : [];
-
-    const egList = document.getElementById("egList");
-    const egCount = document.getElementById("egCount");
-    const intlList = document.getElementById("intlList");
-    const intlCount = document.getElementById("intlCount");
-
-    setCardVisibility(egList, "egSection", egBrands.length > 0);
-    setCardVisibility(intlList, "intlSection", intlBrands.length > 0);
-
-    if (egBrands.length > 0) {
-      renderBrandList(egList, egCount, egBrands, true, query);
-    }
-    if (intlBrands.length > 0) {
-      renderBrandList(intlList, intlCount, intlBrands, false, query);
-    }
-  }
-
-  function render(entry) {
-    currentEntry = entry;
-
-    const eyebrowEl = document.querySelector(".eyebrow");
-    if (eyebrowEl) {
-      eyebrowEl.textContent = "Exact Active Ingredient, Dose & Route Equivalents";
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
     }
 
-    const titleEl =
-      document.getElementById("ingredientTitle") ||
-      document.getElementById("activeIngredientTitle") ||
-      document.querySelector("h1");
-    if (titleEl) {
-      titleEl.textContent = entry.active_ingredient || "Medication Alternatives";
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
     }
 
-    document.title = `${entry.active_ingredient || "Alternatives"} | Rx Alternatives`;
-
-    const tagsEl = document.getElementById("categoryTags");
-    if (tagsEl) {
-      const categories = Array.isArray(entry.categories) ? entry.categories : [];
-      tagsEl.innerHTML = categories
-        .map((cat) => `<span class="tag">${escapeHtml(cat)}</span>`)
-        .join("");
+    .header-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
     }
 
-    const loadingEl = document.getElementById("loadingState");
-    if (loadingEl) loadingEl.style.display = "none";
-
-    const contentEl = document.getElementById("mainContent");
-    if (contentEl) contentEl.style.display = "";
-
-    updateLists();
-  }
-
-  function showError(message) {
-    const loadingEl = document.getElementById("loadingState");
-    if (loadingEl) loadingEl.style.display = "none";
-
-    const errorEl = document.getElementById("errorState");
-    if (errorEl) {
-      errorEl.textContent = message;
-      errorEl.style.display = "block";
-      return;
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: 6px;
     }
 
-    const titleEl =
-      document.getElementById("ingredientTitle") ||
-      document.getElementById("activeIngredientTitle") ||
-      document.querySelector("h1");
-    if (titleEl) {
-      titleEl.textContent = message;
-    }
-  }
-
-  async function init() {
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-      searchInput.addEventListener("input", updateLists);
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      word-break: break-word;
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const id = (params.get("id") || "").trim();
-
-    if (!id) {
-      showError("No medication group ID specified in the link.");
-      return;
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    try {
-      const response = await fetch("./grouped_ingredients.json", {
-        cache: "no-cache",
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+    .tag {
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .search-box {
+      margin-bottom: 16px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .count-pill {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .brand-list {
+      list-style: none;
+    }
+
+    .brand-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .price-badge {
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--badge-text);
+      background: var(--badge-bg);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .empty-msg {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 8px 0;
+    }
+
+    .status-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .error-box {
+      display: none;
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid #fecaca;
+      border-radius: 16px;
+      padding: 20px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 20px;
+      padding: 0 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="loadingState" class="status-box">
+      Loading exact medication equivalents...
+    </div>
+
+    <div id="errorState" class="error-box"></div>
+
+    <div id="mainContent" style="display: none;">
+      <div class="header-card">
+        <div class="eyebrow">Exact Active Ingredient, Dose &amp; Route Equivalents</div>
+        <h1 id="ingredientTitle">Medication Alternatives</h1>
+        <div id="categoryTags" class="tags"></div>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Filter brands by name..."
+          autocomplete="off"
+        />
+      </div>
+
+      <section id="egSection" class="card">
+        <div class="card-header">
+          <span class="card-title">Egyptian Market Alternatives</span>
+          <span id="egCount" class="count-pill">0 Brands</span>
+        </div>
+        <ul id="egList" class="brand-list"></ul>
+      </section>
+
+      <section id="intlSection" class="card">
+        <div class="card-header">
+          <span class="card-title">International Alternatives</span>
+          <span id="intlCount" class="count-pill">0 Brands</span>
+        </div>
+        <ul id="intlList" class="brand-list"></ul>
+      </section>
+
+      <p class="disclaimer">
+        Verify exact dosage, administration route, and pharmacist substitution rules before dispensing.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let currentEntry = null;
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatPrice(price) {
+      const num = Number(price);
+      if (!Number.isFinite(num) || num <= 0) return "";
+      return `${num.toFixed(2)} EGP`;
+    }
+
+    function setCardVisibility(listEl, explicitId, shouldShow) {
+      const section =
+        document.getElementById(explicitId) ||
+        (listEl ? listEl.closest("section, .card") : null);
+      if (section) {
+        section.style.display = shouldShow ? "" : "none";
+      }
+    }
+
+    function renderBrandList(listEl, countEl, brands, isEgyptian, query) {
+      if (!listEl) return;
+
+      const q = query.trim().toLowerCase();
+      const filtered = q
+        ? brands.filter((b) => String(b.name || "").toLowerCase().includes(q))
+        : brands;
+
+      if (countEl) {
+        countEl.textContent = `${filtered.length} ${filtered.length === 1 ? "Brand" : "Brands"}`;
       }
 
-      const db = await response.json();
-      const entry = db[id];
-
-      if (!entry) {
-        showError(`Medication group "${id}" was not found.`);
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<li class="empty-msg">No matching brands found.</li>`;
         return;
       }
 
-      render(entry);
-    } catch (err) {
-      console.error("Failed to load alternatives:", err);
-      showError("Unable to load medication alternatives. Please check your connection and try again.");
+      listEl.innerHTML = filtered
+        .map((item) => {
+          const nameHtml = escapeHtml(item.name);
+          const priceStr = isEgyptian ? formatPrice(item.price) : "";
+          const badgeHtml = priceStr
+            ? `<span class="price-badge">${escapeHtml(priceStr)}</span>`
+            : "";
+          return `<li class="brand-item"><span class="brand-name">${nameHtml}</span>${badgeHtml}</li>`;
+        })
+        .join("");
     }
-  }
 
-  document.addEventListener("DOMContentLoaded", init);
-</script>
+    function updateLists() {
+      if (!currentEntry) return;
+
+      const searchInput = document.getElementById("searchInput");
+      const query = searchInput ? searchInput.value : "";
+
+      const egBrands = Array.isArray(currentEntry.egyptian_brands)
+        ? currentEntry.egyptian_brands
+        : [];
+      const intlBrands = Array.isArray(currentEntry.international_brands)
+        ? currentEntry.international_brands
+        : [];
+
+      const egList = document.getElementById("egList");
+      const egCount = document.getElementById("egCount");
+      const intlList = document.getElementById("intlList");
+      const intlCount = document.getElementById("intlCount");
+
+      setCardVisibility(egList, "egSection", egBrands.length > 0);
+      setCardVisibility(intlList, "intlSection", intlBrands.length > 0);
+
+      if (egBrands.length > 0) {
+        renderBrandList(egList, egCount, egBrands, true, query);
+      }
+      if (intlBrands.length > 0) {
+        renderBrandList(intlList, intlCount, intlBrands, false, query);
+      }
+    }
+
+    function render(entry) {
+      currentEntry = entry;
+
+      const eyebrowEl = document.querySelector(".eyebrow");
+      if (eyebrowEl) {
+        eyebrowEl.textContent = "Exact Active Ingredient, Dose & Route Equivalents";
+      }
+
+      const titleEl = document.getElementById("ingredientTitle");
+      if (titleEl) {
+        titleEl.textContent = entry.active_ingredient || "Medication Alternatives";
+      }
+
+      document.title = `${entry.active_ingredient || "Alternatives"} | Rx Alternatives`;
+
+      const tagsEl = document.getElementById("categoryTags");
+      if (tagsEl) {
+        const categories = Array.isArray(entry.categories) ? entry.categories : [];
+        tagsEl.innerHTML = categories
+          .map((cat) => `<span class="tag">${escapeHtml(cat)}</span>`)
+          .join("");
+      }
+
+      const loadingEl = document.getElementById("loadingState");
+      if (loadingEl) loadingEl.style.display = "none";
+
+      const contentEl = document.getElementById("mainContent");
+      if (contentEl) contentEl.style.display = "";
+
+      updateLists();
+    }
+
+    function showError(message) {
+      const loadingEl = document.getElementById("loadingState");
+      if (loadingEl) loadingEl.style.display = "none";
+
+      const errorEl = document.getElementById("errorState");
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.style.display = "block";
+      }
+    }
+
+    async function init() {
+      const searchInput = document.getElementById("searchInput");
+      if (searchInput) {
+        searchInput.addEventListener("input", updateLists);
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const id = (params.get("id") || "").trim();
+
+      if (!id) {
+        showError("No medication group ID specified in the link.");
+        return;
+      }
+
+      try {
+        const response = await fetch("./grouped_ingredients.json", {
+          cache: "no-cache",
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const db = await response.json();
+        const entry = db[id];
+
+        if (!entry) {
+          showError(`Medication group "${id}" was not found.`);
+          return;
+        }
+
+        render(entry);
+      } catch (err) {
+        console.error("Failed to load alternatives:", err);
+        showError("Unable to load medication alternatives. Please check your connection and try again.");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
