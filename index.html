@@ -334,6 +334,13 @@
 
     function render(entry) {
       currentEntry = entry;
+      const totalBrands =
+        (Array.isArray(entry.egyptian_brands) ? entry.egyptian_brands.length : 0) +
+        (Array.isArray(entry.international_brands) ? entry.international_brands.length : 0);
+      if (totalBrands < 2) {
+        showError("No alternative brands exist for this medication.");
+        return;
+      }
 
       const eyebrowEl = document.querySelector(".eyebrow");
       if (eyebrowEl) {
