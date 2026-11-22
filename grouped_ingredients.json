@@ -4980,6 +4980,25 @@
     ],
     "international_brands": []
   },
+  "EG_01782": {
+    "market": "EG",
+    "active_ingredient": "Antazoline + Tetrahydrozoline • Ophthalmic (Eye)",
+    "normalized_key": "EG|antazoline+tetrahydrozoline|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "OPTIZOLIN EYE DROPS 10 ML",
+        "price": 24.0
+      },
+      {
+        "name": "TRILLERG EYE DROPS 10 ML",
+        "price": 24.0
+      }
+    ],
+    "international_brands": []
+  },
   "EG_01785": {
     "market": "EG",
     "active_ingredient": "Anthralin — 1% • Topical",
@@ -7559,6 +7578,25 @@
     ],
     "international_brands": []
   },
+  "EG_02601": {
+    "market": "EG",
+    "active_ingredient": "Besifloxacin • Ophthalmic (Eye)",
+    "normalized_key": "EG|besifloxacin|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "OCUBESIFLOX EYE SUSP. DROPS 5 ML",
+        "price": 82.0
+      },
+      {
+        "name": "PIXIVANCE 5 ML EYE DROPS",
+        "price": 96.0
+      }
+    ],
+    "international_brands": []
+  },
   "EG_02658": {
     "market": "EG",
     "active_ingredient": "Beta-Sitosterol — 0.25% • Topical",
@@ -7860,6 +7898,45 @@
     ],
     "international_brands": []
   },
+  "EG_02705": {
+    "market": "EG",
+    "active_ingredient": "Betamethasone • Injection / Infusion",
+    "normalized_key": "EG|betamethasone|unspecified|Injection / Infusion",
+    "categories": [
+      "Corticosteroids (Systemic)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "BETAFOS 1 AMP. 2ML",
+        "price": 31.0
+      },
+      {
+        "name": "DEMANCORTIL 1 AMP. 2ML",
+        "price": 24.0
+      },
+      {
+        "name": "DEXAGLOBE 1 AMP. 2ML",
+        "price": 30.0
+      },
+      {
+        "name": "DIPROCORTIN 1 AMP. 2ML",
+        "price": 41.0
+      },
+      {
+        "name": "DIPROFOS 1 AMP. 2ML",
+        "price": 16.8
+      },
+      {
+        "name": "DURAFOS 1 AMP. 2ML IM OR INTRA ARTICULAR",
+        "price": 21.5
+      },
+      {
+        "name": "METHAPHARON 2ML 1 AMPOULE",
+        "price": 31.0
+      }
+    ],
+    "international_brands": []
+  },
   "EG_02708": {
     "market": "EG",
     "active_ingredient": "Betaxolol — 0.5% • Ophthalmic (Eye)",
@@ -8050,6 +8127,29 @@
       {
         "name": "PHARMABILAST 20 MG 20 TABS.",
         "price": 92.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_02743": {
+    "market": "EG",
+    "active_ingredient": "Bimatoprost + Timolol • Ophthalmic (Eye)",
+    "normalized_key": "EG|bimatoprost+timolol|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "GANFORT EYE DROPS 3 ML",
+        "price": 125.0
+      },
+      {
+        "name": "LUMIPROX PLUS EYE DROPS 3 ML",
+        "price": 81.25
+      },
+      {
+        "name": "MATROCOND PLUS EYE DROPS 3 ML",
+        "price": 85.0
       }
     ],
     "international_brands": []
@@ -8877,6 +8977,45 @@
       {
         "name": "BRIMOBRINZ 1%/0.2% EYE DROPS 5 ML",
         "price": 150.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_03159": {
+    "market": "EG",
+    "active_ingredient": "Brimonidine + Timolol • Ophthalmic (Eye)",
+    "normalized_key": "EG|brimonidine+timolol|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "ALFABRIMO PLUS EYE DROPS 5 ML",
+        "price": 70.0
+      },
+      {
+        "name": "ALPHANOVA PLUS EYE DROPS 5 ML",
+        "price": 62.0
+      },
+      {
+        "name": "AZGOCLATENS EYE DROPS 5ML",
+        "price": 39.0
+      },
+      {
+        "name": "BRIMODROPS EYE DROPS 5 ML",
+        "price": 53.5
+      },
+      {
+        "name": "BRIMONOCOND PLUS  EYE DROPS 5 ML",
+        "price": 62.0
+      },
+      {
+        "name": "PHARMATIMOGAN EYE DROPS 5 ML",
+        "price": 58.5
+      },
+      {
+        "name": "TIMOMONDIN EYE DROPS 5 ML",
+        "price": 43.0
       }
     ],
     "international_brands": []
@@ -9933,6 +10072,33 @@
       {
         "name": "DEXTROSE 5% & RINGER (OTSUKA) I.V. INF. 500 ML",
         "price": 11.25
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_03552": {
+    "market": "EG",
+    "active_ingredient": "Calcium Chloride + Potassium Chloride + Sodium Acetate + Sodium Chloride • Injection / Infusion",
+    "normalized_key": "EG|calcium chloride+potassium chloride+sodium acetate+sodium chloride|unspecified|Injection / Infusion",
+    "categories": [
+      "Miscellaneous & Uncategorized"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "RINGER ACETATE (EL NASR) I.V. INF. 500 ML",
+        "price": 13.0
+      },
+      {
+        "name": "RINGER ACETATE (FIPCO) I.V. INF. 500 ML",
+        "price": 14.0
+      },
+      {
+        "name": "RINGER ACETATE (MOTTAHEDOON) I.V. INF. 500 ML",
+        "price": 25.0
+      },
+      {
+        "name": "RINGER ACETATE (OTSUKA) I.V. INF. 500 ML",
+        "price": 15.5
       }
     ],
     "international_brands": []
@@ -14390,6 +14556,25 @@
     ],
     "international_brands": []
   },
+  "EG_04893": {
+    "market": "EG",
+    "active_ingredient": "Chlorpheniramine + Naphazoline + Zinc Sulphate • Ophthalmic (Eye)",
+    "normalized_key": "EG|chlorpheniramine+naphazoline+zinc sulphate|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "PRISOLINE ZINC EYE DROPS 15 ML",
+        "price": 5.0
+      },
+      {
+        "name": "SWIXOLINE ZINC EYE DROPS 15 ML",
+        "price": 5.0
+      }
+    ],
+    "international_brands": []
+  },
   "EG_04908": {
     "market": "EG",
     "active_ingredient": "Chlorpheniramine — 2MG/5ML • Oral Liquid / Suspension",
@@ -16562,6 +16747,25 @@
       {
         "name": "MEPACLIND 300MG 8 CAPS.",
         "price": 38.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_05356": {
+    "market": "EG",
+    "active_ingredient": "Clioquinol + Flumethasone • Otic (Ear)",
+    "normalized_key": "EG|clioquinol+flumethasone|unspecified|Otic (Ear)",
+    "categories": [
+      "Otic (Ear Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "OTOCORT EAR DROPS 10 ML",
+        "price": 26.0
+      },
+      {
+        "name": "VIOTIC EAR DROPS 10 ML",
+        "price": 23.0
       }
     ],
     "international_brands": []
@@ -19050,6 +19254,25 @@
       {
         "name": "VENLATROPE 50 MG 30 EXT.REL.TABS.",
         "price": 159.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_06003": {
+    "market": "EG",
+    "active_ingredient": "Dexamethasone + Moxifloxacin • Ophthalmic (Eye)",
+    "normalized_key": "EG|dexamethasone+moxifloxacin|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "FORTYMOX PLUS EYE DROPS 5 ML",
+        "price": 39.0
+      },
+      {
+        "name": "MOXYSEYARO PLUS EYE DROPS 5 ML",
+        "price": 39.0
       }
     ],
     "international_brands": []
@@ -22203,6 +22426,48 @@
       {
         "name": "GYNORYL 150MG 3 VAG.SUPP. (CANCELLED)",
         "price": 6.6
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_06453": {
+    "market": "EG",
+    "active_ingredient": "Ectoin + Sea Salt + Water • Injection / Infusion",
+    "normalized_key": "EG|ectoin+sea salt+water|unspecified|Injection / Infusion",
+    "categories": [
+      "Dermatology & Topical Preparations"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "ECTOIN SCALP TONIC 10 AMP 2.5 ML",
+        "price": 70.0
+      },
+      {
+        "name": "ECTOIN SCALP TONIC 20 AMP 2.5 ML",
+        "price": 140.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_06454": {
+    "market": "EG",
+    "active_ingredient": "Ectoin + Sodium Chloride + Sodium Hyaluronate • Ophthalmic (Eye)",
+    "normalized_key": "EG|ectoin+sodium chloride+sodium hyaluronate|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "ECTOHYLO EYE DROPS 0.35ML*10 AMP.",
+        "price": 93.0
+      },
+      {
+        "name": "ECTOHYLO EYE DROPS 0.35ML*20 AMP.",
+        "price": 440.0
+      },
+      {
+        "name": "ECTOHYLO EYE DROPS 0.35ML*30 AMP.",
+        "price": 660.0
       }
     ],
     "international_brands": []
@@ -27028,6 +27293,25 @@
     ],
     "international_brands": []
   },
+  "EG_07044": {
+    "market": "EG",
+    "active_ingredient": "Fluorometholone + Sodium Cromoglycate • Ophthalmic (Eye)",
+    "normalized_key": "EG|fluorometholone+sodium cromoglycate|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "EPICROM PLUS EYE SUSP. DROP 5 ML",
+        "price": 41.0
+      },
+      {
+        "name": "FLUCA EYE SUSP. DROP 5 ML",
+        "price": 66.0
+      }
+    ],
+    "international_brands": []
+  },
   "EG_07046": {
     "market": "EG",
     "active_ingredient": "Fluorometholone — 0.1% • Ophthalmic (Eye)",
@@ -27477,6 +27761,29 @@
       {
         "name": "STATOMAIN 50MG 30 F.C.TABS.",
         "price": 114.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_07240": {
+    "market": "EG",
+    "active_ingredient": "Folic Acid + Nicotinamide + Orotic Acid + Panthenol + Vitamin B1 + Vitamin B12 + Vitamin B6 • Injection / Infusion",
+    "normalized_key": "EG|folic acid+nicotinamide+orotic acid+panthenol+vitamin b1+vitamin b12+vitamin b6|unspecified|Injection / Infusion",
+    "categories": [
+      "Vitamins, Minerals & Nutritional Supplements"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "CYANOHEPTAN 6 I.M. AMP. 2 ML",
+        "price": 114.0
+      },
+      {
+        "name": "LIVABION 6 I.M. AMP. 2 ML",
+        "price": 96.0
+      },
+      {
+        "name": "OMNEVORA 8 I.M. AMPS. 2 ML",
+        "price": 128.0
       }
     ],
     "international_brands": []
@@ -29657,6 +29964,25 @@
       {
         "name": "MINIDIAB 5MG 30 TAB.",
         "price": 16.5
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_07555": {
+    "market": "EG",
+    "active_ingredient": "Glucose + Potassium Chloride + Sodium Chloride • Injection / Infusion",
+    "normalized_key": "EG|glucose+potassium chloride+sodium chloride|unspecified|Injection / Infusion",
+    "categories": [
+      "Pediatrics & Oral Electrolytes"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "NEOMAINT I.V. INFUSION 250 ML",
+        "price": 16.0
+      },
+      {
+        "name": "RAWDAMENT  I.V INF. 250 ML",
+        "price": 5.0
       }
     ],
     "international_brands": []
@@ -55667,6 +55993,25 @@
     ],
     "international_brands": []
   },
+  "EG_10846": {
+    "market": "EG",
+    "active_ingredient": "Sodium Carboxymethylcellulose • Ophthalmic (Eye)",
+    "normalized_key": "EG|sodium carboxymethylcellulose|unspecified|Ophthalmic (Eye)",
+    "categories": [
+      "Ophthalmology (Eye Preparations)"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "LACRITEARS EYE DROPS 15 ML",
+        "price": 49.0
+      },
+      {
+        "name": "VISCOTEARS EYE DROPS 15 ML (N/A)",
+        "price": 13.0
+      }
+    ],
+    "international_brands": []
+  },
   "EG_10847": {
     "market": "EG",
     "active_ingredient": "Sodium Chloride — 0.45% • Injection / Infusion",
@@ -56163,6 +56508,25 @@
       {
         "name": "PROVISC 10MG/ML(0.4ML) INTRAOCULAR PREF.SYRINGE(CANCELLED)",
         "price": 120.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_10905": {
+    "market": "EG",
+    "active_ingredient": "Sodium Lactate • Injection / Infusion",
+    "normalized_key": "EG|sodium lactate|unspecified|Injection / Infusion",
+    "categories": [
+      "Miscellaneous & Uncategorized"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "SODIUM LACTATE 1/6 MOLAR (EL NASR) I.V. INF. 500 ML",
+        "price": 10.5
+      },
+      {
+        "name": "SODIUM LACTATE 1/6 MOLAR (OTSUKA) I.V. INF. 500 ML",
+        "price": 11.25
       }
     ],
     "international_brands": []
@@ -62586,6 +62950,25 @@
       {
         "name": "ORAVIT B12 1 MG S.R. 30 CAPS.",
         "price": 54.0
+      }
+    ],
+    "international_brands": []
+  },
+  "EG_11510": {
+    "market": "EG",
+    "active_ingredient": "Vitamin B12 • Injection / Infusion",
+    "normalized_key": "EG|vitamin b12|unspecified|Injection / Infusion",
+    "categories": [
+      "Vitamins, Minerals & Nutritional Supplements"
+    ],
+    "egyptian_brands": [
+      {
+        "name": "MADDOVIT B12 - 10 X 7 ML DRINKABLE AMPS.",
+        "price": 790.0
+      },
+      {
+        "name": "VITALOX B12 ENERGY 10 ORAL AMPOULES X 7 ML",
+        "price": 850.0
       }
     ],
     "international_brands": []
